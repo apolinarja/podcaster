@@ -5,6 +5,13 @@ var HeaderView =  Backbone.View.extend({
 	_getTemplate: null,  // Metodo para obtener la plantilla
 	_templatePath: null, // url de la plantilla
 
+	/**
+	 * Eventos
+	 */
+	events : {
+		'click #home-link':'_navigateHomePage',
+	},
+
 	initialize : function (options){
 		this._getTemplate = options.getTemplate;
 		this._templatePath = options.templatePath;
@@ -13,9 +20,11 @@ var HeaderView =  Backbone.View.extend({
 
 	render : function(options){
 		this.$el.html('');
-    	this.$el.append(this._template({
-    		prueba : 'texto de prueba'
-    	}));
+    	this.$el.append(this._template());
+	},
+
+	_navigateHomePage : function(event){
+		podcastAPP.router.navigate('', {trigger: true});
 	}
 
 });

@@ -1,0 +1,25 @@
+#podcaster-header, #podcaster-main{
+	border-bottom: 3px solid #5b7eb3;
+}
+
+.navigate-reference{
+	cursor: pointer;
+}
+
+#resultsNumber{
+	font-size: 23px;
+}
+
+.rounded-img{
+	border-radius: 50%;
+	height: 150px;
+	width: 150px;
+}
+
+.font-14{
+	font-size: 14px;
+}
+
+.font-12{
+	font-size: 12px;
+}
