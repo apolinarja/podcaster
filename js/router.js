@@ -30,28 +30,23 @@ var PodcasterRouter = Backbone.Router.extend({
 			templatePath : this._searchTemplatePath
 		});
 
-/*		this._podcastDetailView = new PodcastDetailView({
+		this._podcastDetailView = new PodcastDetailView({
 			getTemplate : this._getTemplate,
 			templatePath : this._detailTemplatePath
-		});*/
+		});
 		this._headerView.render();
 	},
 
 	_podcastSearch: function(){
 		this._searchView.render();
-
-		//alert('todo va bien _podcastSearch');
-		//this.navigate('podcast/5', {trigger: true});   --> Esta es la que funciona
-		//Backbone.Router.prototype.navigate.call(this, 'podcast/5' , options);
-		//Backbone.history.loadUrl('podcast/5', {trigger: true});
 	},
 
-	_podcastDetail: function(){
-		alert('todo va bien _podcastDetail');
+	_podcastDetail: function(podcastId){
+		this._podcastDetailView.render(podcastId);
 	},
 
-	_episodeDetail: function(){
-		//alert('todo va bien _episodeDetail');
+	_episodeDetail: function(podcastId, episodeId){
+		this._podcastDetailView.render(podcastId, episodeId);
 	},
 
     /**

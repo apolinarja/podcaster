@@ -37,3 +37,17 @@ function getAJAXCall(options){
 	    error : function(){console.error("ajax error")}
 	});
 };
+
+function getCORSCall(options){
+	fetch(CONSTANTS.GET_CORS_URL + options.feed)
+	.then(function(response) {
+		return response.text();
+	})
+	.then(function(myJson) {
+		options.thenFunc(myJson);
+	});
+};
+
+function convertDate (date){
+	return [date.getDate(), date.getMonth()+1, date.getFullYear()].join('/');
+}

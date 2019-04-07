@@ -15,7 +15,11 @@
 	height: 150px;
 	width: 150px;
 }
-
+.summary-img{
+	border-radius: 5px;
+	height: 150px;
+	width: 150px;
+}
 .font-14{
 	font-size: 14px;
 }
@@ -34,4 +38,19 @@
 .podcast-card{
 	border-radius: 10px;
 	cursor: pointer;
-  }
+ }
+ .summary-card {
+ 	border-radius: 3px;
+ 	box-shadow: 0 0 5px -1px rgba(0,0,0,0.6);
+ }
+ .podcast-summary-main:hover{
+ 	cursor: pointer;
+	box-shadow: 0 0 5px -1px rgba(0,0,0,0.6);
+ }
+ .podcast-summary-main:active{
+ 	background-color: #17a2b8;
+ }
+ .title-link:hover{
+ 	cursor: pointer;
+ 	color: blue;
+ }
