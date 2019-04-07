@@ -47,7 +47,7 @@ var PodcasterRouter = Backbone.Router.extend({
 	},
 
 	_podcastDetail: function(){
-		//alert('todo va bien _podcastDetail');
+		alert('todo va bien _podcastDetail');
 	},
 
 	_episodeDetail: function(){

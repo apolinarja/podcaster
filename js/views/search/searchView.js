@@ -7,12 +7,17 @@ var SearchView =  Backbone.View.extend({
 
 	_podcastCollection: null,
 
-	_podcastItemView: null,
+
+	_filterView: null,
+	_resultsView: null,
+
 
 	/**
 	 * Eventos
 	 */
 	events : {
+		'click .podcast-card' : '_navigatePodcastDetail',
+		'keyup #nameFilter' : '_filterResults'
 	},
 
 	initialize : function (options){
@@ -25,19 +30,38 @@ var SearchView =  Backbone.View.extend({
 	*
 	*/
 	render : function(options){
+		this.$el.html('');
+    	this.$el.html(this._template());
 
-		this._searchPodcasts();
-	},
+		this._filterView = new FilterView({
+			getTemplate : this._getTemplate,
+			templatePath : this._templatePath
+		});
 
-	/**
-	*
-	*/
-	_searchPodcasts : function(){
+		this._filterView.render();
+
+		this._resultsView = new ResultView({
+			getTemplate : this._getTemplate,
+			templatePath : this._templatePath
+		})
+
 		if(!localStorage.getItem('podcastList') || !localStorage.getItem('podcastList').length || this._isExpiredPodcastList()){
 			this._callGetPodcast();
 		} else {
-			this._generateListItems();
+			if(!this._podcastCollection){
+				this._podcastCollection = new PodcastCollection(JSON.parse(localStorage.getItem('podcastList')));
+			}
+			this._renderPodcastList(this._podcastCollection);
 		}
+
+
+	},
+
+	_renderPodcastList : function(collection){
+
+		this._filterView.setCount(collection.length);
+
+		this._resultsView.render({collection: collection});
 	},
 
 	/**
@@ -65,16 +89,10 @@ var SearchView =  Backbone.View.extend({
 			localStorage.setItem('podcastList',JSON.stringify(podcastListJSON));
 			localStorage.setItem('listSearchDate', new Date().getTime());
 		}
-
-		var rows = this._generateListItems();
-
-		this.$el.html('');
-    	this.$el.html(this._template({
-    		resultsCount : 100,
-    		rows: rows
-    	}));
-
+		this._renderPodcastList(new PodcastCollection(podcastListJSON));
 	},
+
+
 
 	_parsePodcastData : function(itunesPodcastList){
 		var podcastList = [];
@@ -92,27 +110,23 @@ var SearchView =  Backbone.View.extend({
 		return podcastList;
 	},
 
-	/**
-	* Coge la lista que hay almacenada en el localstorage. Esta guardado como json 
-	* genera la coleccion y la recorre pasandosela para generar cada item de la lista
-	*/
-	_generateListItems : function(){
-		if(!this._podcastCollection){
-			this._podcastCollection = new PodcastCollection(JSON.parse(localStorage.getItem('podcastList')));
+	_filterResults : function (event){
+		var inputText = $(event.currentTarget).val();
+		if(inputText.length = 0){
+			this._renderPodcastList(this._podcastCollection);
+		} else {
+			var filteredCollection = this._podcastCollection.filter(function(model){
+				return model.get('name').toUpperCase().includes(inputText.toUpperCase())
+				 || model.get('author').toUpperCase().includes(inputText.toUpperCase());
+			}, this);
+
+			this._renderPodcastList(new PodcastCollection(filteredCollection));
 		}
+	},
 
-		this._podcastItemView = new PodcastItemView({
-			getTemplate : this._getTemplate,
-			templatePath: this._templatePath
-		});
-
-		var row = '';
-
-		this._podcastCollection.each(function(model){
-			row += this._podcastItemView.render(model);
-		}, this);
-
-		return row;
+	_navigatePodcastDetail : function(event){
+		var podcastId = $(event.currentTarget).data('podcastid');
+		podcastAPP.router.navigate('podcast/'+ podcastId, {trigger: true});
 	}
 
 });

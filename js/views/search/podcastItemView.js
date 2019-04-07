@@ -20,6 +20,7 @@ var PodcastItemView =  Backbone.View.extend({
 	*/
 	render : function(model){
 		return this._template({
+			id: model.get('id'),
 			src: model.get('img'),
 			alt: model.get('name'),
 			name: model.get('name'),

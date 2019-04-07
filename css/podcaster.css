@@ -23,3 +23,15 @@
 .font-12{
 	font-size: 12px;
 }
+.podcast-card:active{
+	background-color: #17a2b8;
+	box-shadow: 0 0 5px -1px rgba(0,0,0,0.6);
+}
+.podcast-card:hover{
+	background-color: #c4e5ea;
+	border:-1px solid #17a2b8;
+}
+.podcast-card{
+	border-radius: 10px;
+	cursor: pointer;
+  }
