@@ -5,7 +5,6 @@ _.extend(PodcastApplication.prototype, {
 
 	initialize : function(options) {
 		this.router = new PodcasterRouter();
-		// Registrar la historia en las urls con sin #
 		//Backbone.history.start();
 		// Registrar la historia en las urls con # y navigate (explícito)
 		Backbone.history.start({
@@ -16,12 +15,11 @@ _.extend(PodcastApplication.prototype, {
 	},
 
 	navigate: function() {
-		//this.router.navigate(url, options);
 		Backbone.history.loadUrl(Backbone.history.location.pathname, {trigger: true});
 	},
 });
+
 window.podcastAPP = new PodcastApplication(this);
-//PodcastApplication.initialize.apply(this, options);
 
 TemplateManager = function() {};
 
@@ -83,5 +81,3 @@ window.templateManager = new TemplateManager();
 // Arranca la app
 window.podcastAPP = new PodcastApplication(this);
 podcastAPP.initialize();
-//podcastAPP.navigate(Backbone.history.location.pathname);
-//podcastAPP.navigate();

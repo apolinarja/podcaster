@@ -16,7 +16,7 @@ var PodcastItemView =  Backbone.View.extend({
 	},
 
 	/**
-	*
+	* Renderiza cada uno de los componentes 
 	*/
 	render : function(model){
 		return this._template({

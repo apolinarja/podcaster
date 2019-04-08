@@ -8,4 +8,10 @@ var EpisodeModel = Backbone.Model.extend({
 		media: null,
 		mediaType: null
     },
+
+     initialize: function(options) {
+    	if(options && options.publishDate){
+			this.set('publishDate', new Date(options.publishDate));
+    	}
+    }
 });

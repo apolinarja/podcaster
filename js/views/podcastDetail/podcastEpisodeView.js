@@ -1,11 +1,11 @@
 var PodcastEpisodeView =  Backbone.View.extend({
 	el : '#podcastContent',
 
-	_template: null,     // Plantilla del header
+	_template: null,     // Plantilla 
 	_getTemplate: null,  // Metodo para obtener la plantilla
 	_templatePath: null, // url de la plantilla
 
-	_episodeModel: null, // podcast en detalle
+	_episodeModel: null, // modelo de episodio
 
 	/**
 	 * Eventos

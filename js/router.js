@@ -38,14 +38,17 @@ var PodcasterRouter = Backbone.Router.extend({
 	},
 
 	_podcastSearch: function(){
+		loadingIcon(true);
 		this._searchView.render();
 	},
 
 	_podcastDetail: function(podcastId){
+		loadingIcon(true);
 		this._podcastDetailView.render(podcastId);
 	},
 
 	_episodeDetail: function(podcastId, episodeId){
+		loadingIcon(true);
 		this._podcastDetailView.render(podcastId, episodeId);
 	},
 

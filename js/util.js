@@ -24,6 +24,9 @@ function getCall(options){
     });
 };
 
+/**
+* Realiza una llamada AJAX. recibe la url y la funcion callback de succes
+*/
 function getAJAXCall(options){
 	return $.ajax({
 	    async : false,
@@ -38,6 +41,9 @@ function getAJAXCall(options){
 	});
 };
 
+/**
+* Llamada fetc para los datos atraves de un cliente cors
+*/
 function getCORSCall(options){
 	fetch(CONSTANTS.GET_CORS_URL + options.feed)
 	.then(function(response) {
@@ -48,6 +54,9 @@ function getCORSCall(options){
 	});
 };
 
+/**
+* Parsea la fecha en el formato adecuado 
+*/
 function convertDate (date){
-	return [date.getDate(), date.getMonth()+1, date.getFullYear()].join('/');
+	return date ? [date.getDate(), date.getMonth()+1, date.getFullYear()].join('/') : '';
 }

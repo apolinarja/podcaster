@@ -1,7 +1,7 @@
 var FilterView =  Backbone.View.extend({
 	el : '#podcastFilterView',
 
-	_template: null,     // Plantilla del header
+	_template: null,     // Plantilla
 	_getTemplate: null,  // Metodo para obtener la plantilla
 	_templatePath: null, // url de la plantilla
 
@@ -18,7 +18,7 @@ var FilterView =  Backbone.View.extend({
 	},
 
 	/**
-	*
+	* Renderiza la vista del filtro
 	*/
 	render : function(options){
 		this.$el.html('');

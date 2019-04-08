@@ -1,7 +1,7 @@
 var SearchView =  Backbone.View.extend({
 	el : '#podcaster-main',
 
-	_template: null,     // Plantilla del header
+	_template: null,     // Plantilla 
 	_getTemplate: null,  // Metodo para obtener la plantilla
 	_templatePath: null, // url de la plantilla
 
@@ -27,7 +27,7 @@ var SearchView =  Backbone.View.extend({
 	},
 
 	/**
-	*
+	* Render
 	*/
 	render : function(options){
 		this.$el.html('');
@@ -45,6 +45,7 @@ var SearchView =  Backbone.View.extend({
 			templatePath : this._templatePath
 		})
 
+		// comprueba la cache
 		if(!localStorage.getItem('podcastList') || !localStorage.getItem('podcastList').length || this._isExpiredPodcastList()){
 			this._callGetPodcast();
 		} else {
@@ -52,11 +53,13 @@ var SearchView =  Backbone.View.extend({
 				this._podcastCollection = new PodcastCollection(JSON.parse(localStorage.getItem('podcastList')));
 			}
 			this._renderPodcastList(this._podcastCollection);
+			loadingIcon(false);
 		}
 
 
 	},
 
+	// Renderiza las subvistas
 	_renderPodcastList : function(collection){
 
 		this._filterView.setCount(collection.length);
@@ -74,7 +77,7 @@ var SearchView =  Backbone.View.extend({
 	},
 
 	/**
-	* 
+	* Llamada para obtener los datos de los podcast
 	*/
 	_callGetPodcast: function(){
 		getAJAXCall({
@@ -83,6 +86,9 @@ var SearchView =  Backbone.View.extend({
 		});
 	},
 
+	/**
+	* Busqueda success de la lista de podcast
+	**/
 	_searchSuccess : function(response){
 		var podcastListJSON = this._parsePodcastData(response.feed.entry);
 		if(podcastListJSON.length){
@@ -90,10 +96,12 @@ var SearchView =  Backbone.View.extend({
 			localStorage.setItem('listSearchDate', new Date().getTime());
 		}
 		this._renderPodcastList(new PodcastCollection(podcastListJSON));
+		loadingIcon(false);
 	},
 
-
-
+	/**
+	* Formateamos el resultado
+	**/
 	_parsePodcastData : function(itunesPodcastList){
 		var podcastList = [];
 		_.each(itunesPodcastList, function(item){
@@ -110,6 +118,9 @@ var SearchView =  Backbone.View.extend({
 		return podcastList;
 	},
 
+	/**
+	* maneja el evento de insercion del input para filtrar
+	**/
 	_filterResults : function (event){
 		var inputText = $(event.currentTarget).val();
 		if(inputText.length = 0){
@@ -124,7 +135,11 @@ var SearchView =  Backbone.View.extend({
 		}
 	},
 
+	/**
+	* Navega al detalle de un podcast
+	**/
 	_navigatePodcastDetail : function(event){
+		loadingIcon(true);
 		var podcastId = $(event.currentTarget).data('podcastid');
 		podcastAPP.router.navigate('podcast/'+ podcastId, {trigger: true});
 	}

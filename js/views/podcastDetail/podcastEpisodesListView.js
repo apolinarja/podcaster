@@ -1,7 +1,7 @@
 var PodcastEpisodesListView =  Backbone.View.extend({
 	el : '#podcastContent',
 
-	_template: null,     // Plantilla del header
+	_template: null,     // Plantilla
 	_getTemplate: null,  // Metodo para obtener la plantilla
 	_templatePath: null, // url de la plantilla
 
@@ -38,6 +38,9 @@ var PodcastEpisodesListView =  Backbone.View.extend({
     	}));
 	},
 
+	/**
+	*
+	**/
 	_generateEpisodesRow: function(){
 		var rows = '';
 
