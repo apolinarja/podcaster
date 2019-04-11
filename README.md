@@ -21,5 +21,6 @@ Para el desarrollo de la app se han usado las siguientes librerías:
 
 # Notas
 
+- A la hora de realizar la descarga de los datos de los episodios de un podcast puede ver como algunos de estos venían sin identificador. Las opciones eran descartarlos para la lista de episodios o generarles un id único. He optado por generarles un id único mediante la funcionalidad ***_.uniqueId*** de *underscore.js*. A esos episodios se les ha generado el id con el prefijo **"e"**. Solo estarán disponibles con ese id durante las 24 horas que persisten los datos cacheados. Así, por ejemplo, podrían visualizarse URL en el navegador como **localhost/podcaster/podcast/123124/episode/e134**.
 - No se ha realizado la versión minificada de la app debido a que no existe un plugin más allá de algunas fuentes no contrastadas. La única solución que se puede barajar sería hacerlo a mano.
 - Para el acceso a los recursos externos he usado [http://cors.io](http://cors.io). En mi caso ha sido necesario crear una excepción en el antivirus
